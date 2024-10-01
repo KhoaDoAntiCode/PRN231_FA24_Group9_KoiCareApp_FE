@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import logo from '../../../assets/images/pawsitive.png';
+import logo from '../../assets/images/pawsitive.png';
 import { LogIn } from 'lucide-react';
 interface NavbarProps {
     label: string;

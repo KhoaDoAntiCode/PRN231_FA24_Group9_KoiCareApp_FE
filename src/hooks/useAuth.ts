@@ -32,21 +32,21 @@ export const useAuth = () => {
       })
 
     const signInMutation = useMutation({
-        mutationFn: ({ username, password }: { username: string; password: string }) => authApi.loginUser(username,password),
+        mutationFn:  ({ username, password }: { username: string; password: string }) => authApi.loginUser(username,password),
         onSuccess: (data) => {
-        //   console.log(data)
-          localStorage.setItem(TOKEN_KEY,data.data.accessToken)
-          localStorage.setItem(REFRESH_TOKEN_KEY, data.data.refreshToken)
-          queryClient.invalidateQueries({ queryKey: ['user'] })
-          const roleId = decodeToken(localStorage.getItem(TOKEN_KEY) || '').RoleId
-          localStorage.setItem('userId', decodeToken(localStorage.getItem(TOKEN_KEY) || '').Id)
-          if (roleId == '0') {
-            console.log('Admin')
-            navigate(routes.home)
-          } else {
-            console.log('User')
-            navigate(routes.home)
-          }
+          
+          // localStorage.setItem(TOKEN_KEY,data.data.accessToken)
+          // localStorage.setItem(REFRESH_TOKEN_KEY, data.data.refreshToken)
+          // queryClient.invalidateQueries({ queryKey: ['user'] })
+          // const roleId = decodeToken(localStorage.getItem(TOKEN_KEY) || '').RoleId
+          // localStorage.setItem('userId', decodeToken(localStorage.getItem(TOKEN_KEY) || '').Id)
+          // if (roleId == '0') {
+          //   console.log('Admin')
+          //   navigate(routes.home)
+          // } else {
+          //   console.log('User')
+          //   navigate(routes.home)
+          // }
           notification.success({
             message: data.message,
             description: 'You have successfully logged in',

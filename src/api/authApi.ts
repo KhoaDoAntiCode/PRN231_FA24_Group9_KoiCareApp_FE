@@ -3,11 +3,11 @@ import axiosClient from '../lib/axios/axios'; // api instance
 import { AUTH_ENDPOINTS } from './endpoints';
 import {LoginUserAPIResponse, SignUpForm, GetCurrentUserAPIResponse } from '@/types/userType';
 
-export const loginUser = async (username: string, password: string): Promise<LoginUserAPIResponse> => {
+export const loginUser = async (emailAddress: string, passwordHash: string): Promise<LoginUserAPIResponse> => {
   try {
     const response = await axiosClient.post<LoginUserAPIResponse, any>(AUTH_ENDPOINTS.LOGIN, {
-      username,
-      password,
+      emailAddress,
+      passwordHash,
     })
     return response.data;
   } catch (error) {

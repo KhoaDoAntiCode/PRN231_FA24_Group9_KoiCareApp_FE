@@ -1,4 +1,4 @@
-import banner from '../../../assets/images/tải xuống.svg';
+import banner from '../../assets/images/tải xuống.svg';
 
 const Hero = () => {
     return (

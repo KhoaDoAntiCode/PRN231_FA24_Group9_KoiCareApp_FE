@@ -1,39 +1,54 @@
 "use client"
 import CardWrapper from './card_wrapper'
-import { Form,FormControl,FormDescription,FormField,FormItem,FormLabel,FormMessage } from '@/components/ui/form'
-import { LoginSchema } from '@/schema/LoginSchema';
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from 'zod';
-import { Input } from '@/components/ui/input'; 
-import { Button } from '@/components/ui/button';
+import { AxiosError } from "axios";
+import { toast } from "sonner";
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom';
-import { loginUser } from '@/api/authApi';
-import { useAuth } from '@/hooks/useAuth';
-import { useState } from 'react';
+import axiosClient from '@/lib/axios/axios';
+
+import { Form,FormControl,FormField,FormItem,FormLabel,FormMessage } from '@/components/ui/form'
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input'; 
+import {
+LoginResponseType,
+LoginSchema,
+  LoginType,
+} from "@/schema/auth.schema";
+
+import { useAuthContext } from "@/context/AuthContext";
+
 
 const LoginForm = () => {
     const navigate = useNavigate();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const { signInMutation } = useAuth()
-    const form = useForm({
+    const { login } = useAuthContext();
+    const form = useForm<LoginType>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      emailAddress: "",
+      passwordHash: "",
     },
   });
 
-  const onSubmit =(data: z.infer<typeof LoginSchema>) => {
-    console.log(data);
+  async function onSubmit(values: LoginType) {
+    try {
+      const { data } = await axiosClient.post<LoginResponseType>("/api/Authentication/LoginWithEmailAndPasswordJWT", values)
+      toast.success("Success", {
+        description: data.message,
+      })
+      form.reset()
+      login(data.response)
+      return navigate("/")
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        const errorMessage =
+          error.response?.data?.message ?? "An error occurred while signing in."
+        toast.error(errorMessage)
+      } else {
+        toast.error("An unexpected error occurred while signing in.")
+      }
+    }
   }
-
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault()
-    signInMutation.mutate({ username: email, password })
-  }
-
 
   return (
     <CardWrapper
@@ -43,11 +58,11 @@ const LoginForm = () => {
       backButtonLabel="Don't have an account? Register here" 
     >
       <Form {...form}>
-        <form onSubmit={handleLogin} className="space-y-6">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-4">
             <FormField
               control={form.control}
-              name="email"
+              name="emailAddress"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email</FormLabel>
@@ -64,7 +79,7 @@ const LoginForm = () => {
             />
             <FormField
               control={form.control}
-              name="password"
+              name="passwordHash"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Password</FormLabel>

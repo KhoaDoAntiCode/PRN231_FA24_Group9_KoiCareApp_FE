@@ -1,6 +1,6 @@
 import { FaYoutube, FaFacebook, FaInstagram } from 'react-icons/fa';
-import logo from '../../../assets/images/pawsitive.png';
-import footer from '../../../assets/images/footer.png';
+import logo from '../../assets/images/pawsitive.png';
+import footer from '../../assets/images/footer.png';
 const Footer = () => {
     return (
         <footer className="bg-white relative">
