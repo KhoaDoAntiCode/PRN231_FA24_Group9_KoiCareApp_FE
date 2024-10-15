@@ -1,30 +1,40 @@
-import banner from '../../assets/images/tải xuống.svg';
+import React from 'react';
+import Button from './Button';
+import HeroImage from './HeroImage';
 
-const Hero = () => {
-    return (
-        <div className="relative w-full h-[600px]">
-            <div className="absolute inset-0">
-                <img
-                    src={banner}
-                    alt="Happy Corgi running in a field"
-                    className="w-full h-full object-cover object-center scale-x-[-1]"
-                />
+interface PetAdoptionHeroProps {
+  title: string;
+  subtitle: string;
+  description: string;
+}
+
+const PetAdoptionHero: React.FC<PetAdoptionHeroProps> = ({ title, subtitle, description }) => {
+  return (
+    <section className="overflow-hidden pt-20 pl-20 rounded-none bg-[linear-gradient(103deg,#FCEED5_6.43%,#FCEED5_78.33%,#FFE7BA_104.24%)] max-md:pl-5">
+      <div className="flex gap-5 max-md:flex-col">
+        <div className="flex flex-col w-[35%] max-md:ml-0 max-md:w-full">
+          <div className="flex z-10 flex-col self-stretch my-auto -mr-20 w-full text-base font-medium max-md:mt-10 max-md:max-w-full">
+            <h1 className="text-6xl font-extrabold leading-none capitalize text-sky-950 max-md:mr-2.5 max-md:max-w-full max-md:text-4xl">
+              {title}
+            </h1>
+            <h2 className="mt-1 mr-7 text-5xl font-bold leading-tight capitalize text-sky-950 max-md:mr-2.5 max-md:max-w-full max-md:text-4xl">
+              {subtitle}
+            </h2>
+            <p className="mt-6 leading-6 text-gray-800 max-md:max-w-full">
+              {description}
+            </p>
+            <div className="flex gap-5 mt-9 max-w-full w-[344px]">
+              <Button variant="outline" icon="arrow-right">
+                View Intro
+              </Button>
+              <Button variant="solid">Explore Now</Button>
             </div>
-            <div className="relative z-10 flex flex-col items-start justify-center h-full px-6 md:px-12 lg:px-24">
-                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4">
-                    PAWSITIVE
-                </h1>
-                <p className="text-lg md:text-xl lg:text-2xl text-white mb-8 max-w-md">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-                    aliquam erat volutpat.
-                </p>
-                <button className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-full text-lg transition duration-300">
-                    SEE MORE
-                </button>
-            </div>
+          </div>
         </div>
-    );
+        <HeroImage />
+      </div>
+    </section>
+  );
 };
 
-export default Hero;
+export default PetAdoptionHero;

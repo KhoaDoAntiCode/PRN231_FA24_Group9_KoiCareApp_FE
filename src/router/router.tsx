@@ -1,9 +1,11 @@
 import { lazy } from "react";
 const About = lazy (
-    () => import('../pages/About')
+    () => import('../pages/about')
 );
-import Home from '../pages/Home';
+import Home from '../pages/home/Home';
 import LoginPage from "@/pages/authentication/loginpage";
+import PetDetails from "@/components/pet/pet-details/pet-detail-section";
+import PetDetailsPage from "@/components/pet/pet-details";
 // import RegisterPage from "@/pages/authentication/registerpage";
  const routes= {
     home: '/',
@@ -12,7 +14,8 @@ import LoginPage from "@/pages/authentication/loginpage";
     id: '/@:nickname',
     adopt: '/adopt',
     search: '/search',
-    register: '/register'
+    register: '/register',
+    PetDetails: '/petdetails'
 };
 
 export const ROUTE_PATHS_ADMIN = {
@@ -31,6 +34,7 @@ const publicRoutes: RouteObject[] = [
     { path: routes.about, component: About },
     { path: routes.login, component: LoginPage},
     // { path: routes.register, component: RegisterPage}
+    { path: routes.PetDetails, component: PetDetailsPage}
 ];
 
 const privateRoutes: RouteObject[] = [];

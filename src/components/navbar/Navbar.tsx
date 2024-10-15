@@ -13,7 +13,7 @@ const navItems: NavbarProps[] = [
     },
     { 
         label: 'ADOPT', 
-        path: '/adopt' 
+        path: '/petlist' 
     },
     { 
         label: 'DONATE', 
@@ -52,11 +52,6 @@ const Navbar = () => {
                     ))}
                 </ul>
                 <button className="bg-transparent" >
-                    {/* <img
-                        src="/path-to-uk-flag.png"
-                        alt="English"
-                        className="h-6 w-6"
-                    /> */}
                     <Link to="/login" className='flex items-end'>
                         Login 
                         <LogIn /> 

@@ -4,10 +4,13 @@ import { Fragment } from 'react/jsx-runtime';
 import RootLayout from './components/layouts/root-layout';
 import { Suspense, useEffect, useState } from "react";
 import { Root } from '@radix-ui/react-slot';
-import  Home from './pages/Home';
-import  About from './pages/About';
+import  Home from './pages/home/Home';
+import  About from './pages/about';
 import LoginPage  from './pages/authentication/loginpage';
 import RegisterPage from './pages/authentication/registerpage';
+import PetDetailsPage from './components/pet/pet-details';
+import PetList from './components/pet/petcards/PetList';
+// import PetCardList from './components/petcards/PetList';
 
 function App() {
     const [loading,setLoading] = useState<boolean>(true);
@@ -48,6 +51,10 @@ function App() {
                 <Route path="/about" element={<About />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
+
+                {/* !Pet Route */}
+                <Route path="/petlist"    element={<PetList />} />
+                <Route path="/petdetails" element={<PetDetailsPage />} />
             </Route>    
         </Routes>
     );
