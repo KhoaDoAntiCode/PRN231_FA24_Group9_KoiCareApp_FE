@@ -16,12 +16,12 @@ LoginSchema,
   LoginType,
 } from "@/schema/auth.schema";
 
-// import { useAuthContext } from "@/context/AuthContext";
+import { useAuthContext } from "@/context/AuthContext";
 
 
 const LoginForm = () => {
     const navigate = useNavigate();
-    // const { login } = useAuthContext();
+    const { login } = useAuthContext();
     const form = useForm<LoginType>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {

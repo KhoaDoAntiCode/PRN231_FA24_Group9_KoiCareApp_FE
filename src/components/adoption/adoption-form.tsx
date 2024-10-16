@@ -1,35 +1,39 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, Controller } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { AdoptionFormSchema, AdoptionFormType, AdoptionFormResponseType } from '@/schema/adoption.schema';
 import { Input } from '@/components/ui/input'; 
 import axiosClient from '@/lib/axios/axios';
 
-type Props = {
-    applicationDate: Date;
-    approvalDate: Date;
-    adoptionReason: string;
-    petExperience: string;
-    address: string;
-    contactNumber: string;
-    notes: string;
-    userEmail: string;
-    petId: string;
-}
+import { useState } from 'react';
 
-const AdoptionForm = ({
-    applicationDate,
-    approvalDate,
-    adoptionReason,
-    petExperience,
-    address,
-    contactNumber,
-    notes,
-    userEmail,
-    petId
-}: Props) => {
+// type Props = {
+//     applicationDate: Date;
+//     approvalDate: Date;
+//     adoptionReason: string;
+//     petExperience: string;
+//     address: string;
+//     contactNumber: string;
+//     notes: string;
+//     userEmail: string;
+//     petId: string;
+// }
+
+// {applicationDate,
+// approvalDate,
+// adoptionReason,
+// petExperience,
+// address,
+// contactNumber,
+// notes,
+// userEmail,
+// petId
+// }: Props
+const AdoptionForm = () => {
     const navigate = useNavigate();
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
     const form = useForm<AdoptionFormType>({
         resolver: zodResolver(AdoptionFormSchema),
         defaultValues: {
@@ -43,19 +47,25 @@ const AdoptionForm = ({
     });
 
     const onSubmit = async (values: AdoptionFormType) => {
+        setIsSubmitting(true);
         try {
-            const { data } = await axiosClient.post<AdoptionFormResponseType>("/api/Adoption/AddAdoptionForm/AddAdoptionForm", values);
-            // Handle success, maybe navigate or show a success message
-            navigate('/success'); // Replace with your desired route
+            const { data } = await axiosClient.post<AdoptionFormResponseType>("/api/Adoption/AddAdoptionForm/AddAdoptionForm", values)
+            navigate('/petlist');
+            return data.data;
         } catch (error) {
-            // Handle error, show a message
             console.error("Error submitting form:", error);
+            form.setError("root", { message: "Có lỗi xảy ra khi gửi biểu mẫu, vui lòng thử lại sau." });
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
     return (
         <div className="max-w-lg mx-auto">
-            <h2 className="text-2xl font-bold">Adopt {petId}</h2>
+            <h2 className="text-2xl font-bold">Adopt a pet</h2>
+            {isSubmitting? (
+                <p className="text-green-500">Your application has been submitted!</p>
+            ) : (
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
                     <FormField 
@@ -147,6 +157,7 @@ const AdoptionForm = ({
                     </button>
                 </form>
             </Form>
+      )}
         </div>
     );
 }

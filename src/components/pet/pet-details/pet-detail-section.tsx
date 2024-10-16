@@ -37,26 +37,26 @@ const PetDetailSection = ({
     : Props) => {
         const slides = [
         {    
-            url: 'https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2620&q=80',
+            url: 'https://chocanh.vn/wp-content/uploads/hinh-anh-cho-con-4.jpg',
             alt: 'Happy pets and their owners',
         },
         {
-            url: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80',
+            url: 'https://th.bing.com/th/id/OIP.9WUe6RukVy7IrjFwkX8wqgHaD4?w=334&h=180&c=7&r=0&o=5&dpr=2.5&pid=1.7',
             alt: 'Happy pets and their owners',
         },
         {
-            url: 'https://images.unsplash.com/photo-1661961112951-f2bfd1f253ce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2672&q=80',
+            url: 'https://th.bing.com/th/id/OIP.cGnPlLdjL7kwWbi7aqctwAHaFj?w=206&h=180&c=7&r=0&o=5&dpr=2.5&pid=1.7',
             alt: 'Happy pets and their owners',
         },
     
-        {
-          url: 'https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2253&q=80',
-          alt: 'Happy pets and their owners',
-        },
-        {
-          url: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2671&q=80',
-          alt: 'Happy pets and their owners',
-        },
+        // {
+        //   url: 'https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2253&q=80',
+        //   alt: 'Happy pets and their owners',
+        // },
+        // {
+        //   url: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2671&q=80',
+        //   alt: 'Happy pets and their owners',
+        // },
       ];
   return (
         <div className='flex flex-row p-5 m-auto'>     
@@ -124,7 +124,7 @@ const PetDetailSection = ({
                             <div className="text-[#667479] text-sm font-medium font-['SVN-Gilroy'] leading-tight">Recuse Date</div>
                         </div>
                         <div className="grow shrink basis-0 h-[26px] px-[11px] pt-1 pb-0.5 justify-start items-start gap-2.5 flex">
-                            <div className="text-[#667479] text-sm font-medium font-['SVN-Gilroy'] leading-tight">{recuseDate.toLocaleDateString()}</div>
+                            <div className="text-[#667479] text-sm font-medium font-['SVN-Gilroy'] leading-tight">10-5-2024</div>
                         </div>
                     </div>
                     <div className="w-[517px] py-2 border-b border-[#ebedef] justify-start items-start inline-flex">
@@ -144,9 +144,11 @@ const PetDetailSection = ({
                         </div>
                     </div>
                 </div>
-                <button>
-                    <Link to ={`/adoptionform`} />
-                </button>
+                    <button className='bg-blue-500 text-white p-2 rounded'>
+                        <Link to = {"/adoption"}>
+                        Contact to adopt 
+                        </Link>
+                    </button>
             </div>
         </div>
   )

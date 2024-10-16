@@ -10,7 +10,8 @@ import LoginPage  from './pages/authentication/loginpage';
 import RegisterPage from './pages/authentication/registerpage';
 import PetDetailsPage from './components/pet/pet-details';
 import PetList from './components/pet/petcards/PetList';
-// import PetCardList from './components/petcards/PetList';
+import AdoptionForm from './components/adoption/adoption-form';
+
 
 function App() {
     const [loading,setLoading] = useState<boolean>(true);
@@ -54,7 +55,10 @@ function App() {
 
                 {/* !Pet Route */}
                 <Route path="/petlist"    element={<PetList />} />
-                <Route path="/petdetails" element={<PetDetailsPage />} />
+                <Route path="/petdetails/:id" element={<PetDetailsPage />} />
+
+                {/* Adoption Form Route */}
+                <Route path="/adoption" element={<AdoptionForm />} />
             </Route>    
         </Routes>
     );

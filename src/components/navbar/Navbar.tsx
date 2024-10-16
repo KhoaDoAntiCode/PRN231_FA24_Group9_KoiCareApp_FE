@@ -20,8 +20,12 @@ const navItems: NavbarProps[] = [
         path: '/donate' 
     },
     { 
-        label: 'VOLUNTEER', 
-        path: '/volunteer' 
+        label: 'EVENTS',
+        path:  '/Events'
+    },
+    {
+        label: 'ADOPTION',
+        path: '/adoption'
     },
     { 
         label: 'BLOG', 
