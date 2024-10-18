@@ -11,6 +11,8 @@ import RegisterPage from './pages/authentication/registerpage';
 import PetDetailsPage from './components/pet/pet-details';
 import PetList from './components/pet/petcards/PetList';
 import AdoptionForm from './components/adoption/adoption-form';
+import AboutPage from './pages/about';
+import EventPage from './pages/event';
 
 
 function App() {
@@ -49,7 +51,7 @@ function App() {
         <Routes>
             <Route element={<RootLayout />}>
                 <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
+                <Route path="/about" element={<AboutPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
 
@@ -58,7 +60,10 @@ function App() {
                 <Route path="/petdetails/:id" element={<PetDetailsPage />} />
 
                 {/* Adoption Form Route */}
-                <Route path="/adoption" element={<AdoptionForm />} />
+                <Route path="/adoption/:id" element={<AdoptionForm />} />
+
+
+                <Route path='/events' element={<EventPage />} />
             </Route>    
         </Routes>
     );

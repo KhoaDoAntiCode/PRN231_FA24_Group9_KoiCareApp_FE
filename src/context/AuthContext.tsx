@@ -27,24 +27,24 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false)
     const navigate = useNavigate()
   
-    useEffect(() => {
-      const checkSession = async () => {
-        try {
-          setLoading(true)
-          const { data } = await axiosClient.get<WhoAmIResponseType>("/auth/who-am-i")
-          if (data.response) {
-            setMember(data.response)
-            setIsAuthenticated(true)
-          }
-        } catch (error) {
-          console.log("Error while checking session", error)
-        } finally {
-          setLoading(false)
-        }
-      }
+    // useEffect(() => {
+    //   const checkSession = async () => {
+    //     try {
+    //       setLoading(true)
+    //       const { data } = await axiosClient.get<WhoAmIResponseType>("/auth/who-am-i")
+    //       if (data.response) {
+    //         setMember(data.response)
+    //         setIsAuthenticated(true)
+    //       }
+    //     } catch (error) {
+    //       console.log("Error while checking session", error)
+    //     } finally {
+    //       setLoading(false)
+    //     }
+    //   }
   
-      checkSession()
-    }, [])
+    //   checkSession()
+    // }, [])
   
     const login = (memberData: MemberType) => {
       setMember(memberData)

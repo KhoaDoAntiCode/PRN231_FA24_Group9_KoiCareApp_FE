@@ -1,16 +1,16 @@
 import * as z from "zod"
 
 export const AdoptionFormSchema = z.object({
-    applicationDate:  z.date(),
-    approvalDate:     z.date(),
+    applicationDate:  z.date().nullable(),
+    approvalDate:     z.date().nullable(),
     // adoptionStatus: z.boolean()
-    adoptionReason:   z.string().min(1, "Adoption reason is required"),
-    petExperience:    z.string().min(1, "Pet experience is required"),
-    address:          z.string().min(1, "Address is required"),
-    contactNumber:    z.string().min(11, "Contact number is required"),
-    notes:            z.string().min(1, "Notes are required"),
-    userEmail:        z.string().email("Invalid email address"),
-    petId :           z.string().min(1, "Pet ID is required"),
+    adoptionReason:   z.string().min(1, "Adoption reason is required").nullable(),
+    petExperience:    z.string().min(1, "Pet experience is required").nullable(),
+    address:          z.string().min(1, "Address is required").nullable().nullable(),
+    contactNumber:    z.string().min(10, "Contact number is required").nullable(),
+    notes:            z.string().nullable(),
+    userEmail:        z.string().email("Invalid email address").nullable(),
+    petId :           z.string().uuid("Invalid Pet ID").nullable(),
   })
   
   export type AdoptionFormType = z.infer<typeof AdoptionFormSchema>

@@ -21,15 +21,15 @@ const navItems: NavbarProps[] = [
     },
     { 
         label: 'EVENTS',
-        path:  '/Events'
+        path:  '/events'
     },
     {
         label: 'ADOPTION',
         path: '/adoption'
     },
     { 
-        label: 'BLOG', 
-        path: '/blog' },
+        label: 'ABOUT', 
+        path: '/about' },
     { 
         label: 'CONTACT', 
         path: '/contact' 
@@ -41,7 +41,7 @@ const Navbar = () => {
         <nav className="bg-color-primary/10 shadow-md w-full h-24">
             <div className="container mx-auto flex justify-between items-center h-full">
                 <Link to="/" className="flex items-center">
-                    <img src={logo} alt="Pawsitive" className="h-12 w-12" />
+                    <img src={logo} alt="Pawsitive" className="h-24 w-24" />
                 </Link>
                 <ul className="flex space-x-6">
                     {navItems.map((item) => (
