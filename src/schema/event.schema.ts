@@ -18,3 +18,11 @@ export const BasicEventRequestSchema = z.object({
 
 // Export the inferred TypeScript type
 export type BasicEventRequestType = z.infer<typeof BasicEventRequestSchema>;
+
+export const EventResponseSchema = z.object({
+    message: z.string(),
+    success: z.boolean(),
+    data: z.array(BasicEventRequestSchema),
+});
+
+export type EventResponseType = z.infer<typeof EventResponseSchema>;

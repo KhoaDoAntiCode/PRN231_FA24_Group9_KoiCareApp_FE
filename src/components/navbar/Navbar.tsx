@@ -23,10 +23,10 @@ const navItems: NavbarProps[] = [
         label: 'EVENTS',
         path:  '/events'
     },
-    {
-        label: 'ADOPTION',
-        path: '/adoption'
-    },
+    // {
+    //     label: 'ADOPTION',
+    //     path: '/adoption'
+    // },
     { 
         label: 'ABOUT', 
         path: '/about' },

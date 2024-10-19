@@ -72,7 +72,7 @@ export const MemberResponseSchema = CommonSchema.extend({
   response: z.array(MemberSchema),
 })
 
-export type MemberResponseType = z.infer<typeof MemberResponseSchema>
+export type MemberResponseType = z.infer<typeof MemberResponseSchema> 
 
 export type LoginResponseType = {
   success: boolean

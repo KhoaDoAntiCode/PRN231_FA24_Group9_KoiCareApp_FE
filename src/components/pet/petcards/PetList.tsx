@@ -11,9 +11,9 @@ const PetList = () => {
     const fetchPets = async () => {
         try {
             const { data } = await axiosClient.get<PetResponseType>("/api/Pet/GetAllPets");
-                console.log(data);
+                
                 setPets(data.data); 
-                console.log(data.data);
+                
                 setIsLoading(false);
         } catch (err: any) {
             setError(err);
@@ -40,7 +40,8 @@ const PetList = () => {
                                 petName={pet.petName}
                                 age={pet.age}
                                 breed={pet.breed}
-                            />
+                                imageSrc={pet.petImages && pet.petImages.length > 0 ? pet.petImages[0].image : ""}
+                                />
                         </div>
                     ))
                 ) : (

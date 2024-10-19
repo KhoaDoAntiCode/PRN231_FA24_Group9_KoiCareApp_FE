@@ -1,5 +1,5 @@
 
-import { ImageSlider } from '../../slider'
+// import { ImageSlider } from '../../slider'
 import { Link } from "react-router-dom"
 import {
     Breadcrumb,
@@ -9,20 +9,10 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator,
   } from "@/components/ui/breadcrumb"
+import { PetType } from "@/schema/pet.schema"
 
 
-type Props = { 
-        id: string
-        petName : string 
-        age : string 
-        breed : string
-        gender : string
-        description : string
-        recuseDate : Date
-        shelterName : string
-        imageSrc : string
-        
-}
+
 const PetDetailSection = ({
     id,
     petName,
@@ -30,30 +20,33 @@ const PetDetailSection = ({
     breed,
     gender,
     description,
-    recuseDate,
+    rescueDate,
     shelterName,
-    imageSrc
+    petImages: imageSrc
  }
-    : Props) => {
-        const slides = [
-        {    
-            url: 'https://chocanh.vn/wp-content/uploads/hinh-anh-cho-con-4.jpg',
-            alt: 'Happy pets and their owners',
-        },
-        {
-            url: 'https://th.bing.com/th/id/OIP.9WUe6RukVy7IrjFwkX8wqgHaD4?w=334&h=180&c=7&r=0&o=5&dpr=2.5&pid=1.7',
-            alt: 'Happy pets and their owners',
-        },
-        {
-            url: 'https://th.bing.com/th/id/OIP.cGnPlLdjL7kwWbi7aqctwAHaFj?w=206&h=180&c=7&r=0&o=5&dpr=2.5&pid=1.7',
-            alt: 'Happy pets and their owners',
-        },
+    : PetType) => {
+    //     const slides = [
+    //     {    
+    //         url: 'https://chocanh.vn/wp-content/uploads/hinh-anh-cho-con-4.jpg',
+    //         alt: 'Happy pets and their owners',
+    //     },
+    //     {
+    //         url: 'https://th.bing.com/th/id/OIP.9WUe6RukVy7IrjFwkX8wqgHaD4?w=334&h=180&c=7&r=0&o=5&dpr=2.5&pid=1.7',
+    //         alt: 'Happy pets and their owners',
+    //     },
+    //     {
+    //         url: 'https://th.bing.com/th/id/OIP.cGnPlLdjL7kwWbi7aqctwAHaFj?w=206&h=180&c=7&r=0&o=5&dpr=2.5&pid=1.7',
+    //         alt: 'Happy pets and their owners',
+    //     },
     
-      ];
+    //   ];
   return (
         <div className='flex flex-row p-5 m-auto'>     
             <div className="flex flex-col w-[560px] h-[476px] rounded-[10px] py-[-22px] pl-[-20px] pr-[-34px]"> 
-               <ImageSlider images={slides}/>
+               {/* <ImageSlider images={slides}/> */}
+               <div className="flex flex-wrap mt-4">
+                    <img key={imageSrc[0].image} src={imageSrc[0].image} alt={petName} className="w-32 h-32 object-cover m-2 rounded-lg" />
+                </div>
             </div>
             <div className='grid grid-row gap-5'> 
                 <Breadcrumb className='pb-4'>

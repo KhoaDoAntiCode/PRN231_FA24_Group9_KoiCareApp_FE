@@ -13,6 +13,7 @@ import PetList from './components/pet/petcards/PetList';
 import AdoptionForm from './components/adoption/adoption-form';
 import AboutPage from './pages/about';
 import EventPage from './pages/event';
+import SuccessPage from './pages/success';
 
 
 function App() {
@@ -64,6 +65,8 @@ function App() {
 
 
                 <Route path='/events' element={<EventPage />} />
+
+                <Route path='/success' element={< SuccessPage />} />
             </Route>    
         </Routes>
     );

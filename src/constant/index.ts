@@ -8,6 +8,7 @@ export const AUTHORITIES = {
   STAFF: 2,
 }
 
+
 type RoleMappingType = {
   [key: string]: string
 }

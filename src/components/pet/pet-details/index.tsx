@@ -1,13 +1,11 @@
 import { useParams } from "react-router-dom";
 import axiosClient from "@/lib/axios/axios";
-import { PetDetailResponseType, PetDetailType} from "@/schema/pet.schema";
+import { PetDetailResponseType, PetDetailType } from "@/schema/pet.schema";
 import { useState, useEffect } from "react";
 import PetDetailSection from "./pet-detail-section";
 
-
 export default function PetDetailsPage() {
     const { id } = useParams<{ id: string }>();
-    console.log(id);
     const [pet, setPet] = useState<PetDetailType | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
@@ -15,16 +13,28 @@ export default function PetDetailsPage() {
     const fetchPet = async () => {
         try {
             const { data } = await axiosClient.get<PetDetailResponseType>(`/api/Pet/GetPet/${id}`);
-            setPet(data.data); // Assuming data.data is a single pet object
-            setIsLoading(false);
+            // console.log("Fetched pet data:", data); // Log the response
+            const petData = data.data;
+            // console.log("Pet data:", petData);
+            
+            const imageSrc = petData.petImages ? petData.petImages.map((img) => img.image) : [];
+            setPet({
+                ...petData,
+                // imageSrc,
+            })
         } catch (err: any) {
             setError(err);
-            setIsLoading(false);
         }
     };
 
     useEffect(() => {
-        fetchPet();
+        const fetchData = async () => {
+            setIsLoading(true);
+            await Promise.all([fetchPet()]);
+            setIsLoading(false);
+        };
+
+        fetchData();
     }, [id]);
 
     if (isLoading) return <div>Loading...</div>;
@@ -32,7 +42,6 @@ export default function PetDetailsPage() {
     if (!pet) return <div>No pet available</div>;
 
     return (
-        
         <div className="my-16 bg-white">
             <div className="mx-auto max-w-7x1">
                 <div className="relative items-center px-4 sm:px-6 lg:px-8">
@@ -43,13 +52,13 @@ export default function PetDetailsPage() {
                         breed={pet.breed}
                         description={pet.description}
                         gender={pet.gender}
-                        recuseDate={pet.rescueDate}
+                        rescueDate={pet.rescueDate}
                         shelterName={pet.shelterName}
-                        imageSrc={pet.imageSrc}
+                        petImages={pet.petImages}
+                        imageSrc={pet.petImages[0].image}
                     />
                 </div>
             </div>
         </div>
-        
     );
 }

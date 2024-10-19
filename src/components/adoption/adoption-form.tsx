@@ -1,56 +1,78 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm, Controller } from 'react-hook-form';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { AdoptionFormSchema, AdoptionFormType, AdoptionFormResponseType } from '@/schema/adoption.schema';
 import { Input } from '@/components/ui/input'; 
 import axiosClient from '@/lib/axios/axios';
-
 import { useState } from 'react';
 import { Button } from '../ui/button';
+import { toast } from "sonner";
 
 const AdoptionForm = () => {
-    const { id } = useParams<{ id: string }>();
-    const navigate = useNavigate();
+    const { id } = useParams<{ id: string }>(); // Get petId from URL params
+    console.log("Pet ID:", id);
+    const navigate = useNavigate();  
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const form = useForm<AdoptionFormType>({
         resolver: zodResolver(AdoptionFormSchema),
         defaultValues: {
+            petId: id || "", // Pre-fill petId from URL
             adoptionReason: "",
             petExperience: "",
             address: "",
             contactNumber: "",
             notes: "",
             userEmail: "",
-            
         }
     });
 
-    const onSubmit = async (values: AdoptionFormType) => {
-        setIsSubmitting(true);
+    console.log("Form values:", form.getValues());
+
+    // const onSubmit = async (values: AdoptionFormType) => {
+    //     setIsSubmitting(true);
+    //     try {
+    //         const { data } = await axiosClient.post<AdoptionFormResponseType>(
+    //             "/api/Adoption/AddAdoptionForm/AddAdoptionForm",
+    //             values
+    //         );
+    //         console.log("Successful submission:", data);
+    //         navigate('/success'); // Navigate to a success page
+    //         console.log(data);
+    //     } catch (error) {
+    //         console.error("Error submitting form:", error);
+    //         form.setError("root", { message: "An error occurred while submitting the form, please try again later." });
+    //     } finally {
+    //         setIsSubmitting(false);
+    //     }
+    // };
+    async function onSubmit(values: AdoptionFormType) {
         try {
-            const { data } = await axiosClient.post<AdoptionFormResponseType>("/api/Adoption/AddAdoptionForm/AddAdoptionForm"
-                , values)
-            navigate('/petlist');
-            console.log(data);
-            return data.data;
-        } catch (error) {
+            const { data } = await axiosClient.post<AdoptionFormResponseType>(
+                "/api/Adoption/AddAdoptionForm/AddAdoptionForm"
+                , values
+            );
+            toast.success("Success", {
+                description: data.message,
+            });
+            form.reset();
+            navigate('/success'); // Navigate to a success page
+
+        }
+        catch (error) {
             console.error("Error submitting form:", error);
-            form.setError("root", { message: "Có lỗi xảy ra khi gửi biểu mẫu, vui lòng thử lại sau." });
-        } finally {
+            form.setError("root", { message: "An error occurred while submitting the form, please try again later." });
+        }
+        finally {
             setIsSubmitting(false);
         }
-    };
-
+    }
     return (
         <div className="max-w-lg mx-auto">
-            <h2 className="text-2xl font-bold">Adopt a pet</h2>
-            {isSubmitting? (
-                <p className="text-green-500">Your application has been submitted!</p>
-            ) : (
+            <h2 className="text-2xl font-bold mb-4">Adopt a Pet</h2>
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                     <FormField 
                         control={form.control}
                         name="adoptionReason" 
@@ -58,11 +80,12 @@ const AdoptionForm = () => {
                             <FormItem>
                                 <FormLabel>Adoption Reason</FormLabel>
                                 <FormControl>
-                                <Input 
-                                    {...field} 
-                                    placeholder="Describe your reason" 
-                                    value={field.value || ""} 
-                                />
+                                    <Input 
+                                        {...field} 
+                                        type='text'
+                                        placeholder="Describe your reason" 
+                                        value={field.value || ""}
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -76,11 +99,12 @@ const AdoptionForm = () => {
                             <FormItem>
                                 <FormLabel>Pet Experience</FormLabel>
                                 <FormControl>
-                                <Input 
-                                    {...field} 
-                                    placeholder="Describe your pet experience" 
-                                    value={field.value || ""} 
-                                />
+                                    <Input 
+                                        {...field} 
+                                        type='text'
+                                        placeholder="Describe your pet experience" 
+                                        value={field.value || ""}
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -94,11 +118,12 @@ const AdoptionForm = () => {
                             <FormItem>
                                 <FormLabel>Address</FormLabel>
                                 <FormControl>
-                                <Input 
-                                    {...field} 
-                                    placeholder="Please fullfill your address here"
-                                    value={field.value || ""} 
-                                />
+                                    <Input 
+                                        {...field} 
+                                        type='text'
+                                        placeholder="Enter your address" 
+                                        value={field.value || ""}
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -114,8 +139,9 @@ const AdoptionForm = () => {
                                 <FormControl>
                                     <Input 
                                         {...field} 
-                                        placeholder="Please fullfill your contact number here"
-                                        value={field.value || ""} 
+                                        type='text'
+                                        placeholder="Enter your contact number" 
+                                        value={field.value || ""}
                                     />                                
                                 </FormControl>
                                 <FormMessage />
@@ -132,8 +158,9 @@ const AdoptionForm = () => {
                                 <FormControl>
                                     <Input 
                                         {...field} 
-                                        placeholder="Describe your notes"
-                                        value={field.value || ""} // Chuyển đổi null thành chuỗi rỗng
+                                        type='text'
+                                        placeholder="Additional notes (optional)" 
+                                        value={field.value || ""}
                                     />                                
                                 </FormControl>
                                 <FormMessage />
@@ -146,12 +173,13 @@ const AdoptionForm = () => {
                         name="userEmail" 
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>User Email</FormLabel>
+                                <FormLabel>Email Address</FormLabel>
                                 <FormControl>
                                     <Input 
-                                        {...field} 
-                                        placeholder="Please fullfill your email address here" 
-                                        value={field.value || ""} // Chuyển đổi null thành chuỗi rỗng
+                                        {...field}
+                                        type='text' 
+                                        placeholder="Enter your email address" 
+                                        value={field.value || ""}
                                     />                                
                                 </FormControl>
                                 <FormMessage />
@@ -159,12 +187,14 @@ const AdoptionForm = () => {
                         )}
                     />
 
-                    <Button type="submit" className="mt-4 bg-blue-500 text-white p-2 rounded">
-                        Submit
+                    {/* Hidden input for petId */}
+                    <input type="hidden" {...form.register("petId")} />
+
+                    <Button type="submit" className="mt-4 bg-blue-500 text-white p-2 rounded" disabled={isSubmitting}>
+                        {isSubmitting ? "Submitting..." : "Submit"}
                     </Button>
                 </form>
             </Form>
-      )}
         </div>
     );
 }

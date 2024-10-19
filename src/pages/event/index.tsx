@@ -1,10 +1,11 @@
-import EventCard from '@/components/events/EventCard'
+
+import EventList from '@/components/events/EventList'
 import React from 'react'
 
 const EventPage = () => {
   return (
     <div>
-        <EventCard />
+        <EventList />
     </div>
   )
 }
