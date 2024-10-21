@@ -1,72 +1,96 @@
 import React ,{ useContext, useEffect, useState } from "react"
 
 import { useNavigate } from "react-router-dom";
-import { toast } from "sonner"
+import { Role } from '@/enum';
+import { mapStringToRole } from '@/utils/convertRole';
+import { UserDTOType  } from "@/schema/auth.schema"
+import decodeToken from '@/utils/decodeJWT';
 
-import { MemberType, WhoAmIResponseType } from "@/schema/auth.schema"
 
-import axiosClient from "@/lib/axios/axios";
 type AuthProviderProps = {
     children: React.ReactNode
   }
-
+interface UserDTO {
+    id: string;
+    emailAddress: string;
+    fullName: string;
+    phoneNumber: string;
+    role: Role;
+  }
 type AuthContextType = {
   isAuthenticated: boolean;
-  loading: boolean;
-  member: MemberType | null;
-  setMember: (member: MemberType | null) => void;
-  login: (memberData: MemberType) => void;
+  user: UserDTOType | null;
+  // setUser: (user: UserDTOType | null) => void;
+  login: ( token: string) => void;
   logout: () => void;
 };
 
 export const AuthContext = React.createContext<AuthContextType | null>(null);
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
-    const [member, setMember] = useState<MemberType | null>(null)
-    const [loading, setLoading] = useState(true)
     const [isAuthenticated, setIsAuthenticated] = useState(false)
+    const [user, setUser] = useState<UserDTO | null>(null)
+
     const navigate = useNavigate()
-  
-    // useEffect(() => {
-    //   const checkSession = async () => {
-    //     try {
-    //       setLoading(true)
-    //       const { data } = await axiosClient.get<WhoAmIResponseType>("/auth/who-am-i")
-    //       if (data.response) {
-    //         setMember(data.response)
-    //         setIsAuthenticated(true)
-    //       }
-    //     } catch (error) {
-    //       console.log("Error while checking session", error)
-    //     } finally {
-    //       setLoading(false)
-    //     }
-    //   }
-  
-    //   checkSession()
-    // }, [])
-  
-    const login = (memberData: MemberType) => {
-      setMember(memberData)
-      setIsAuthenticated(true)
-    }
-  
-    const logout = async () => {
-      try {
-        await axiosClient.post("/auth/logout")
-        toast.success("Logged out successfully")
-        setMember(null)
-        setIsAuthenticated(false)
-        navigate("/")
-      } catch (error) {
-        console.log("Error while logging out", error)
-        toast.error("An error occurred while logging out")
+
+    useEffect(() => {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+          handleLoginWithToken(token);
       }
+  }, []);
+
+  const handleLoginWithToken = (token: string) => {
+    try {
+        const decodedToken = decodeToken(token);
+        if (decodedToken) {
+            console.log("Decoded Token:", decodedToken); // Log the decoded token for debugging
+
+            // Extract the role from the token using the claim key
+            const roleString = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+            if (!roleString) {
+                throw new Error("Role is missing in the token");
+            }
+
+            // Map the role string to the Role enum
+            const role = mapStringToRole(roleString);
+
+            const userData: UserDTO = {
+                id: decodedToken.Id,
+                emailAddress: decodedToken.Email,
+                fullName: decodedToken.FullName || "",
+                phoneNumber: decodedToken.PhoneNumber || "",
+                role: role,
+            };
+            setIsAuthenticated(true);
+            setUser(userData);
+        } else {
+            throw new Error("Failed to decode the token");
+        }
+    } catch (error) {
+        console.error('Error decoding token:', error);
+        localStorage.removeItem('authToken');
+        setIsAuthenticated(false);
+        setUser(null);
     }
+};
+
+
+    const login = (token: string) => {
+      localStorage.setItem('authToken', token);
+      handleLoginWithToken(token);
+  };
+
+    const logout = () => {
+      localStorage.removeItem('authToken');
+      setIsAuthenticated(false);
+      setUser(null);
+      navigate('/login');
+  };
   
     return (
       <AuthContext.Provider
-        value={{ isAuthenticated, member, setMember, loading, login, logout }}
+        value={{ isAuthenticated, user, login, logout }}
       >
         {children}
       </AuthContext.Provider>

@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import axiosClient from "@/lib/axios/axios";
+import axiosClient from "@/config/axios";
 import { PetDetailResponseType, PetDetailType } from "@/schema/pet.schema";
 import { useState, useEffect } from "react";
 import PetDetailSection from "./pet-detail-section";
@@ -42,8 +42,8 @@ export default function PetDetailsPage() {
     if (!pet) return <div>No pet available</div>;
 
     return (
-        <div className="my-16 bg-white">
-            <div className="mx-auto max-w-7x1">
+        <div className="mx-5 my-5 bg-white">
+            <div className="mx-5 p-5 ">
                 <div className="relative items-center px-4 sm:px-6 lg:px-8">
                     <PetDetailSection
                         id={pet.id}

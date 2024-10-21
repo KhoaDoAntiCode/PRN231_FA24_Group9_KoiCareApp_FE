@@ -6,6 +6,8 @@ import Home from '../pages/home/Home';
 import LoginPage from "@/pages/authentication/loginpage";
 import PetDetails from "@/components/pet/pet-details/pet-detail-section";
 import PetDetailsPage from "@/components/pet/pet-details";
+import { App } from "antd";
+import ApplicationList from "@/components/adoption/application-list";
 // import RegisterPage from "@/pages/authentication/registerpage";
  const routes= {
     home: '/',
@@ -15,7 +17,8 @@ import PetDetailsPage from "@/components/pet/pet-details";
     adopt: '/adopt',
     search: '/search',
     register: '/register',
-    PetDetails: '/petdetails'
+    PetDetails: '/petdetails',
+    AdoptionList: '/adoptionlist'
 };
 
 export const ROUTE_PATHS_ADMIN = {
@@ -33,8 +36,9 @@ const publicRoutes: RouteObject[] = [
     { path: routes.home, component: Home },
     { path: routes.about, component: About },
     { path: routes.login, component: LoginPage},
-    // { path: routes.register, component: RegisterPage}
-    { path: routes.PetDetails, component: PetDetailsPage}
+
+    { path: routes.PetDetails, component: PetDetailsPage},
+    { path: routes.AdoptionList, component: ApplicationList}
 ];
 
 const privateRoutes: RouteObject[] = [];

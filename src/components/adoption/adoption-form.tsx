@@ -4,16 +4,19 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { AdoptionFormSchema, AdoptionFormType, AdoptionFormResponseType } from '@/schema/adoption.schema';
 import { Input } from '@/components/ui/input'; 
-import axiosClient from '@/lib/axios/axios';
-import { useState } from 'react';
+import axiosClient from '@/config/axios';
+import { useState,useEffect } from 'react';
 import { Button } from '../ui/button';
 import { toast } from "sonner";
+import { AuthContext, useAuthContext } from '@/context/AuthContext';
+
+
 
 const AdoptionForm = () => {
     const { id } = useParams<{ id: string }>(); // Get petId from URL params
-    console.log("Pet ID:", id);
     const navigate = useNavigate();  
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const { isAuthenticated, login, logout } = useAuthContext();
 
     const form = useForm<AdoptionFormType>({
         resolver: zodResolver(AdoptionFormSchema),
@@ -27,52 +30,43 @@ const AdoptionForm = () => {
             userEmail: "",
         }
     });
+    useEffect(() => {
+        // Check if the user is authenticated
+        if (!isAuthenticated) {
+            // If not authenticated, redirect to the login page
+            navigate("/login");
+        }
+    }, [isAuthenticated, navigate]);
 
-    console.log("Form values:", form.getValues());
-
-    // const onSubmit = async (values: AdoptionFormType) => {
-    //     setIsSubmitting(true);
-    //     try {
-    //         const { data } = await axiosClient.post<AdoptionFormResponseType>(
-    //             "/api/Adoption/AddAdoptionForm/AddAdoptionForm",
-    //             values
-    //         );
-    //         console.log("Successful submission:", data);
-    //         navigate('/success'); // Navigate to a success page
-    //         console.log(data);
-    //     } catch (error) {
-    //         console.error("Error submitting form:", error);
-    //         form.setError("root", { message: "An error occurred while submitting the form, please try again later." });
-    //     } finally {
-    //         setIsSubmitting(false);
-    //     }
-    // };
     async function onSubmit(values: AdoptionFormType) {
+        setIsSubmitting(true); // Set submitting state to true
         try {
             const { data } = await axiosClient.post<AdoptionFormResponseType>(
-                "/api/Adoption/AddAdoptionForm/AddAdoptionForm"
-                , values
+                `/api/Adoption/AddAdoptionForm/AddAdoptionForm/${id}`, 
+                values
             );
             toast.success("Success", {
                 description: data.message,
             });
             form.reset();
-            navigate('/success'); // Navigate to a success page
-
-        }
-        catch (error) {
+            navigate("/"); // Navigate to homepage
+        } catch (error) {
             console.error("Error submitting form:", error);
             form.setError("root", { message: "An error occurred while submitting the form, please try again later." });
-        }
-        finally {
+        } finally {
             setIsSubmitting(false);
         }
     }
+
+    if (!isAuthenticated) {
+        toast.message("You should login before fill in the the form");
+        return <p>Redirecting to login...</p>;
+    }
     return (
-        <div className="max-w-lg mx-auto">
-            <h2 className="text-2xl font-bold mb-4">Adopt a Pet</h2>
+        <div className="max-w-lg mx-auto px-10 py-5">
+            <h2 className="text-2xl font-bold mb-4 text-center text-orange-400">Adopt a Pet</h2>
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                <form onSubmit={form.handleSubmit(onSubmit,(e) => console.log(e))} className="space-y-4">
                     <FormField 
                         control={form.control}
                         name="adoptionReason" 

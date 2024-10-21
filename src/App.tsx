@@ -14,6 +14,8 @@ import AdoptionForm from './components/adoption/adoption-form';
 import AboutPage from './pages/about';
 import EventPage from './pages/event';
 import SuccessPage from './pages/success';
+import ApplicationList from './components/adoption/application-list';
+import ShelterList from './pages/admin/shelters';
 
 
 function App() {
@@ -62,11 +64,13 @@ function App() {
 
                 {/* Adoption Form Route */}
                 <Route path="/adoption/:id" element={<AdoptionForm />} />
-
+                <Route path="/adoptionlist" element={<ApplicationList />} />
 
                 <Route path='/events' element={<EventPage />} />
 
                 <Route path='/success' element={< SuccessPage />} />
+
+                <Route path='/shelterlist' element={<ShelterList />} />
             </Route>    
         </Routes>
     );

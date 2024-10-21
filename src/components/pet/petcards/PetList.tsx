@@ -1,7 +1,8 @@
-import axiosClient from "@/lib/axios/axios";
+import axiosClient from "@/config/axios";
 import PetCard from "./PetCard";
 import {  PetResponseType, PetType } from "@/schema/pet.schema";
 import { useState, useEffect } from "react";
+import CarouselDemo from "@/components/carousel";
 
 const PetList = () => {
     const [pets, setPets] = useState<PetType[]>([]); // Ensure pets is initialized as an array
@@ -30,6 +31,7 @@ const PetList = () => {
 
     return (
         <section className="mt-7 w-full max-md:max-w-full">
+            <CarouselDemo />
             <h2 className="text-2xl font-bold text-center py-10">List Of Adoption </h2>    
             <div className="grid grid-cols-4 gap-5 max-md:flex-col">
                 {pets !== undefined ? (

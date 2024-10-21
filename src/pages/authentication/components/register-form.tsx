@@ -12,7 +12,7 @@ import {
   RegisterType,
 } from "@/schema/auth.schema"
 
-import axiosClient from '@/lib/axios/axios';
+import axiosClient from '@/config/axios';
 
 import { Button } from "@/components/ui/button"
 import {

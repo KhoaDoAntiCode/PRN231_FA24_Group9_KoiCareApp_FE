@@ -1,4 +1,4 @@
-import axiosClient from '@/lib/axios/axios';
+import axiosClient from '@/config/axios';
 import { BasicEventRequestType, EventResponseType } from '@/schema/event.schema';
 import { useState, useEffect } from 'react';
 import EventCard from './EventCard';

@@ -8,7 +8,7 @@ import { toast } from "sonner"
 import { CommonResponseType } from "@/schema/common.schema"
 import { ShelterType } from "@/schema/shelters.schema"
 
-import axiosClient from "@/lib/axios/axios"
+import axiosClient from "@/config/axios"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -31,10 +31,10 @@ export default function DataTableRowActions({
   const navigate = useNavigate()
 
   const { mutateAsync: deleteShelter } = useMutation({
-    mutationKey: ["deleteWatch", shelters._id],
+    mutationKey: ["deleteWatch", shelters.id],
     mutationFn: async () => {
       const { data } = await axiosClient.delete<CommonResponseType>(
-        `api/Shelter/Deleteshelter/${shelters._id}`
+        `api/Shelter/Deleteshelter/${shelters.id}`
       )
       return data
     },
@@ -63,7 +63,7 @@ export default function DataTableRowActions({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem onClick={() => navigate(`/api/Shelter/UpdateShelter/${shelters._id}`)}>
+        <DropdownMenuItem onClick={() => navigate(`/api/Shelter/UpdateShelter/${shelters.id}`)}>
           Edit
         </DropdownMenuItem>
         <DropdownMenuSeparator />

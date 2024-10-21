@@ -1,45 +1,53 @@
-// interface Application {
-//     id: string;
-//     petName : string;
-//     applicationStatus: boolean;
-// }
+import axiosClient from "@/config/axios";
+import { AdoptionFormResponseType, AdoptionFormType } from "@/schema/adoption.schema";
+import { useState, useEffect } from "react";
+import AdoptionForm from "./adoption-form";
 
-// import axiosClient from "@/lib/axios/axios"
-// import { AdoptionFormResponseSchema, AdoptionFormResponseType } from "@/schema/adoption.schema";
-// import { useQuery } from "@tanstack/react-query"
-// import { Loader } from "../loader/loading";
-// import AdoptionForm from "./adoption-form";
+const ApplicationList = () => {
+    const [adoptions, setAdoptions] = useState<AdoptionFormType[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<Error | null>(null);
 
+    const fetchAdoptions = async () => {
+        try {
+            const { data } = await axiosClient.get<AdoptionFormResponseType[]>(`/api/Adoption/GetAllAdoptionForms/AdoptionForm`);
+            console.log(data);
+            const adoptionForms = data.flatMap(response => response.data);
+            setAdoptions(adoptionForms);
+            setIsLoading(false);
+        } catch (error) {
+            setError(error as Error);
+            setIsLoading(false);
+        }
+    };
 
-// const ApplicationList = () => {
-//     const { data: adoptions,isFetching } = useQuery({
-//         queryKey: ["adoptions"],
-//         queryFn: async () => {
-//             const { data } = await axiosClient.get<AdoptionFormResponseType>("/api/Adoption/GetAllAdoptionForms/AdoptionForm");
-//             return data.data;
-//         }
-//     })
-//     return (
-//         <main>
-//             <Loader loading={isFetching}>
-//                 <div>
-//                     {adoptions !== undefined && 
-//                     adoptions?.map((Adopt) => (
-//                         <AdoptionForm
-//                             applicationDate={ApplicationList.applicationDate}
-//                             approvalDate   ={ApplicationList.approvalDate}
-//                             adoptionReason ={ApplicationList.adoptionReason}
-//                             petExperience  ={ApplicationList.petExperience}
-//                             address        = {ApplicationList.address}
-//                             contactNumber  ={ApplicationList.contactNumber}
-//                             notes          ={ApplicationList.notes}
-//                             userEmail      ={ApplicationList.userEmail}
-//                             petId          ={ApplicationList.petId}
-//                         />
-//                     ))}
-//                 </div>
-//             </Loader>
-//         </main>
-//     )
-// }
+    
+    
 
+    // Fetch the adoption forms when the component is mounted
+    useEffect(() => {
+        fetchAdoptions();
+    }, []);
+
+    return (
+        <main>
+            {isLoading ? (
+                <p>Loading...</p>
+            ) : error ? (
+                <p>Error loading adoption forms: {error.message}</p>
+            ) : (
+                <div>
+                    {adoptions.length > 0 ? (
+                        adoptions.map((adopt) => (
+                            <AdoptionForm key={adopt.petId || undefined} />
+                        ))
+                    ) : (
+                        <p>No adoption forms available</p>
+                    )}
+                </div>
+            )}
+        </main>
+    );
+};
+
+export default ApplicationList;

@@ -1,8 +1,17 @@
 import * as z from "zod"
 
+export interface AdoptionFormProps {
+  adoptionReason: string | null;
+  petExperience: string | null;
+  address: string | null;
+  contactNumber: string | null;
+  notes: string | null;
+  userEmail: string | null;
+  petId: string | null;
+}
 export const AdoptionFormSchema = z.object({
-    applicationDate:  z.date().nullable(),
-    approvalDate:     z.date().nullable(),
+    // applicationDate:  z.date().nullable(),
+    // approvalDate:     z.date().nullable(),
     // adoptionStatus: z.boolean()
     adoptionReason:   z.string().min(1, "Adoption reason is required").nullable(),
     petExperience:    z.string().min(1, "Pet experience is required").nullable(),

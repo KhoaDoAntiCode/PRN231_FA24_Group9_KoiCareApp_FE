@@ -25,15 +25,4 @@ export const columns: ColumnDef<ShelterType>[] = [
     accessorKey: "currentCapacity",
     header: "Current Capacity",
   },
-//   {
-//     accessorKey: "isAdmin",
-//     header: "Admin",
-//     cell: ({ row }) => {
-//       return (
-//         <div className=" ">
-//           <span>{row.original.isAdmin ? "Yes" : "No"}</span>
-//         </div>
-//       )
-//     },
-//   },
 ]

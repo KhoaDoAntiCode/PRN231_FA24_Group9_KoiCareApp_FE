@@ -1,5 +1,5 @@
 // src/api/authApi.ts
-import axiosClient from '../lib/axios/axios'; // api instance
+import axiosClient from '../config/axios'; // api instance
 import { AUTH_ENDPOINTS } from './endpoints';
 import {LoginUserAPIResponse, SignUpForm, GetCurrentUserAPIResponse } from '@/types/userType';
 
