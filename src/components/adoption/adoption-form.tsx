@@ -37,15 +37,22 @@ const AdoptionForm = () => {
         if (!isAuthenticated) {
             // If not authenticated, redirect to the login page
             navigate("/login");
+            toast.message("You should login before fill in the the form");
         }
     }, [isAuthenticated, navigate]);
 
     async function onSubmit(values: AdoptionFormType) {
         setIsSubmitting(true); // Set submitting state to true
         try {
+            const token = localStorage.getItem('authToken');
             const { data } = await axiosClient.post<AdoptionFormResponseType>(
-                `/api/Adoption/AddAdoptionForm/AddAdoptionForm/${id}`, 
-                values
+                `/api/Adoption/AddAdoptionForm/AddAdoptionForm/${id}`,
+                values,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
             );
             if (data.success) {
                 setIsModalOpen(true);
@@ -62,6 +69,7 @@ const AdoptionForm = () => {
             setIsSubmitting(false);
         }
     }
+    
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
@@ -71,10 +79,6 @@ const AdoptionForm = () => {
         navigate("/");
     };
 
-    if (!isAuthenticated) {
-        toast.message("You should login before fill in the the form");
-        return <p>Redirecting to login...</p>;
-    }
     return (
         <div className="max-w-4xl mx-auto px-10 py-10 flex items-center gap-10 bg-white rounded-lg shadow-lg">
             <SuccessModal isOpen={isModalOpen} onClose={handleCloseModal} onNavigateHome={handleNavigateHome} />

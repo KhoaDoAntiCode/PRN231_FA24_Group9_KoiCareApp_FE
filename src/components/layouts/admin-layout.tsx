@@ -1,5 +1,8 @@
 import { useAuthContext } from "@/context/AuthContext";
 import UnauthorizedPage from "@/pages/unauthorized";
+import AdminNavbar from "../navbar/NavbarAdmin";
+import { Outlet } from "react-router-dom";
+import Footer from "../footer/Footer";
 
 
 export default function AdminLayout()  {
@@ -11,8 +14,14 @@ export default function AdminLayout()  {
     }
 
     return (
-        <div>
-            Admin Layout
+        <div className="flex flex-col min-h-screen">
+            <AdminNavbar/>
+
+            <main className="flex-grow">
+                <Outlet />
+            </main>
+
+            <Footer />
         </div>
     )
 }

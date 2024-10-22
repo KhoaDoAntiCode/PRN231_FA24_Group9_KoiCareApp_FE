@@ -1,54 +1,44 @@
 import { Link } from 'react-router-dom';
 import logo from '../../assets/images/pawsitive.png';
-// import { LogIn, LogOut } from 'lucide-react';
-// import { useAuthContext } from '@/context/AuthContext';
 import Avatar1 from '../avatar';
+
 interface NavbarProps {
     label: string;
     path: string;
 }
 
-const navItems: NavbarProps[] = [
+const adminNavItems: NavbarProps[] = [
     { 
-        label: 'HOME', 
-        path: '/' 
+        label: 'Dashboard', 
+        path: '/admin-dashboard' 
     },
     { 
-        label: 'ADOPT', 
-        path: '/petlist' 
+        label: 'Manage Shelter', 
+        path: '/admin/manage-shelter' 
     },
     { 
-        label: 'DONATE', 
-        path: '/donate' 
+        label: 'Manage Pets', 
+        path: '/admin/manage-pets' 
     },
     { 
-        label: 'EVENTS',
-        path:  '/events'
-    },
-    // {
-    //     label: 'ADOPTION',
-    //     path: '/adoption'
-    // },
-    { 
-        label: 'ABOUT', 
-        path: '/about' 
+        label: 'Manage Adoption Forms', 
+        path: '/admin/manage-adoption-forms' 
     },
     { 
-        label: 'SHELTERLIST', 
-        path: '/shelterlist'
+        label: 'Manage Events', 
+        path: '/admin/events' 
     },
 ];
 
-const Navbar = () => {
-    
+const AdminNavbar = () => {
     return (
         <nav className="bg-color-primary/10 shadow-md w-full h-24">
             <div className="container mx-auto flex justify-between items-center h-full">
                 <Link to="/" className="flex items-center">
-                    <img src={logo} alt="Pawsitive" className="h-24 w-24" />
+                    <img src={logo} alt="Pawsitive Admin" className="h-24 w-24" />
                 </Link>
                 <ul className="flex space-x-6">
-                    {navItems.map((item) => (
+                    {adminNavItems.map((item) => (
                         <li key={item.path}>
                             <Link
                                 to={item.path}
@@ -61,10 +51,9 @@ const Navbar = () => {
                 </ul>
 
                 <Avatar1 />
-
             </div>
         </nav>
     );
 };
 
-export default Navbar;
+export default AdminNavbar;
