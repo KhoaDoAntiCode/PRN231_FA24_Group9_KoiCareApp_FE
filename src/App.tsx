@@ -16,41 +16,40 @@ import EventPage from './pages/event';
 import SuccessPage from './pages/success';
 import ApplicationList from './components/adoption/application-list';
 import ShelterList from './pages/admin/shelters';
+import AdminDashboard from './pages/admin';
 
 
 function App() {
     const [loading,setLoading] = useState<boolean>(true);
     return (
-        // <BrowserRouter>
-        //     <div className="App">
-        //         {publicRoutes && publicRoutes.length > 0 ? (
-        //             <Routes>
-        //                 {publicRoutes.map((route, index) => {
-        //                     const Page = route.component;
-        //                     let Layout = RootLayout
-        //                     if (route.layout) {
-        //                         Layout = route.layout;
-        //                     } else if (route.layout === null) {
-        //                         Layout = Fragment;
-        //                     }
-        //                     return (
-        //                         <Route
-        //                             key={index}
-        //                             path={route.path}
-        //                             element={
-        //                                 <Layout>
-        //                                     <Page />
-        //                                 </Layout>
-        //                             }
-        //                         />
-        //                     );
-        //                 })}
-        //             </Routes>
-        //         ) : (
-        //             <p>No routes available.</p>
-        //         )}
-        //     </div>
-        // </BrowserRouter> 
+            // <div className="App">
+            //     {publicRoutes && publicRoutes.length > 0 ? (
+            //         <Routes>
+            //             {publicRoutes.map((route, index) => {
+            //                 const Page = route.component;
+            //                 let Layout = RootLayout
+            //                 if (route.layout) {
+            //                     Layout = route.layout;
+            //                 } else if (route.layout === null) {
+            //                     Layout = Fragment;
+            //                 }
+            //                 return (
+            //                     <Route
+            //                         key={index}
+            //                         path={route.path}
+            //                         element={
+            //                             <Layout>
+            //                                 <Page />
+            //                             </Layout>
+            //                         }
+            //                     />
+            //                 );
+            //             })}
+            //         </Routes>
+            //     ) : (
+            //         <p>No routes available.</p>
+            //     )}
+            // </div>
         <Routes>
             <Route element={<RootLayout />}>
                 <Route path="/" element={<Home />} />
@@ -71,6 +70,7 @@ function App() {
                 <Route path='/success' element={< SuccessPage />} />
 
                 <Route path='/shelterlist' element={<ShelterList />} />
+                <Route path='/admin-dashboard' element={<AdminDashboard />} />
             </Route>    
         </Routes>
     );

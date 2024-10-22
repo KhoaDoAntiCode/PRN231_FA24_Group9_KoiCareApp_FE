@@ -12,7 +12,7 @@ const ApplicationList = () => {
         try {
             const { data } = await axiosClient.get<AdoptionFormResponseType[]>(`/api/Adoption/GetAllAdoptionForms/AdoptionForm`);
             console.log(data);
-            const adoptionForms = data.flatMap(response => response.data);
+            const adoptionForms = data[0].data;
             setAdoptions(adoptionForms);
             setIsLoading(false);
         } catch (error) {

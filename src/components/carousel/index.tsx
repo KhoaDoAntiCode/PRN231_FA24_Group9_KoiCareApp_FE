@@ -15,6 +15,7 @@ import React from 'react'
 const CarouselDemo: React.FC = () => {
   return (
     <Carousel className="px-10 py-10 align-center">
+      {/* <CarouselPrevious /> */}
     <CarouselContent>
         <CarouselItem>
         <div>
@@ -44,8 +45,7 @@ const CarouselDemo: React.FC = () => {
         </div>
         </CarouselItem>
     </CarouselContent>
-    <CarouselPrevious />
-    <CarouselNext />
+    {/* <CarouselNext /> */}
     </Carousel>
   )
 }

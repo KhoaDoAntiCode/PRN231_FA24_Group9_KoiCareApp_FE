@@ -26,109 +26,6 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import dog from '../../../assets/images/dog.jpg'
 
-// type SignUpForm = z.infer<typeof RegisterSchema>
-
-// const RegisterForm = () => {
-//   const [loading, setLoading] = useState(false);
-//   const { signUpMutation } = useAuth();
-  
-//   const form = useForm({
-//     resolver: zodResolver(RegisterSchema),
-//     defaultValues: {
-//       emailAddress: "",
-//       passwordHash: "",
-//       fullName: "",
-//       phoneNumber: ""
-//     },
-//   });
-
-//   // const onSubmit = (data: z.infer<typeof RegisterSchema>) => {
-//   //   setLoading(true);
-//   //   console.log(data);
-//   // };
-
-//   const onSubmit = (data: SignUpForm) => {
-//     }
-//     signUpMutation.mutate(inputData);
-//   }
-  
-//   return (
-//     <CardWrapper
-//       label="Create an account"
-//       title="Register"
-//       backButtonHref="/login"
-//       backButtonLabel="Already have an account? Login here."
-//     >
-//       <Form {...form}>
-//         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-//           <div className="space-y-4">
-//             <FormField
-//               control={form.control}
-//               name="email"
-//               render={({ field }) => (
-//                 <FormItem>
-//                   <FormLabel>Email</FormLabel>
-//                   <FormControl>
-//                     <Input
-//                       {...field}
-//                       type="email"
-//                       placeholder="johndoe@gmail.com"
-//                     />
-//                   </FormControl>
-//                   <FormMessage />
-//                 </FormItem>
-//               )}
-//             />
-//             <FormField
-//               control={form.control}
-//               name="name"
-//               render={({ field }) => (
-//                 <FormItem>
-//                   <FormLabel>Name</FormLabel>
-//                   <FormControl>
-//                     <Input {...field} placeholder="John Doe" />
-//                   </FormControl>
-//                   <FormMessage />
-//                 </FormItem>
-//               )}
-//             />
-//             <FormField
-//               control={form.control}
-//               name="password"
-//               render={({ field }) => (
-//                 <FormItem>
-//                   <FormLabel>Password</FormLabel>
-//                   <FormControl>
-//                     <Input {...field} type="password" placeholder="******" />
-//                   </FormControl>
-//                   <FormMessage />
-//                 </FormItem>
-//               )}
-//             />
-//             <FormField
-//               control={form.control}
-//               name="confirmPassword"
-//               render={({ field }) => (
-//                 <FormItem>
-//                   <FormLabel>Confirm Password</FormLabel>
-//                   <FormControl>
-//                     <Input {...field} type="password" placeholder="******" />
-//                   </FormControl>
-//                   <FormMessage />
-//                 </FormItem>
-//               )}
-//             />
-//           </div>
-//           <Button type="submit" className="w-full" >
-//             {loading ? "Loading..." : "Register"}
-//           </Button>
-//         </form>
-//       </Form>
-//     </CardWrapper>
-//   );
-// };
-
-// export default RegisterForm;
 export default function RegisterPage() {
     const navigate = useNavigate()
     const form = useForm<RegisterType>({
@@ -136,7 +33,6 @@ export default function RegisterPage() {
       defaultValues: {
         emailAddress: "",
         passwordHash: "",
-        // confirmedPassword: "",
         fullName: "",
         phoneNumber: ""
       },
@@ -269,27 +165,7 @@ export default function RegisterPage() {
                       )}
                     />
                   </div>
-  
-                  {/* <div className="col-span-6 space-y-2">
-                    <FormField
-                      control={form.control}
-                      name="confirmedPassword"
-                      render={({ field }) => (
-                        <FormItem>
-                          <Label>Confirm Password</Label>
-                          <FormControl>
-                            <Input
-                              type="password"
-                              placeholder="Confirm Password"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div> */}
-  
+
                   <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
                     <Button type="submit" className="w-full">
                       Register
@@ -298,12 +174,14 @@ export default function RegisterPage() {
                   <div className="col-span-6 sm:flex sm:items-center sm:gap-4 mx-auto">
                     <p className="mt-4 text-sm text-gray-500 sm:mt-0">
                       Already have an account?
-                      <Link
-                        to="/login"
-                        className="text-gray-500 underline hover:text-gray-900 hover:font-normal"
-                      >
-                        Login
-                      </Link>
+                      <Button className="ml-2">
+                        <Link
+                            to="/login"
+                            className="text-white underline hover:text-red-700 hover:font-normal"
+                          >
+                              Login
+                          </Link>
+                      </Button>
                     </p>
                   </div>
                 </form>

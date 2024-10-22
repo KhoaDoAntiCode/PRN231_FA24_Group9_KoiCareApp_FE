@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from './Button';
 import HeroImage from './HeroImage';
+import { Link } from 'react-router-dom';
 
 interface PetAdoptionHeroProps {
   title: string;
@@ -25,9 +26,11 @@ const PetAdoptionHero: React.FC<PetAdoptionHeroProps> = ({ title, subtitle, desc
             </p>
             <div className="flex gap-5 mt-9 max-w-full w-[344px]">
               <Button variant="outline" icon="arrow-right">
-                View Intro
+                <Link to="/about">View Intro</Link>
               </Button>
-              <Button variant="solid">Explore Now</Button>
+              <Button variant="solid">
+                <Link to="/petlist">Explore Now</Link>
+              </Button>
             </div>
           </div>
         </div>

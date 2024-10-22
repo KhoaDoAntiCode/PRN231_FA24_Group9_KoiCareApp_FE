@@ -5,6 +5,7 @@ const token = localStorage.getItem('authToken');
 
 const axiosClient = axios.create({
     baseURL: "https://localhost:5001",
+    timeout: 1000,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`

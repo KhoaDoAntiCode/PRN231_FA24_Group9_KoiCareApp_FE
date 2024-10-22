@@ -30,7 +30,7 @@ const PetList = () => {
     if (error) return <div>Error loading pets</div>;
 
     return (
-        <section className="mt-7 w-full max-md:max-w-full">
+        <section className="overflow-hidden pt-1 pl-4 rounded-none bg-white max-md:pl-5">
             <CarouselDemo />
             <h2 className="text-2xl font-bold text-center py-10">List Of Adoption </h2>    
             <div className="grid grid-cols-4 gap-5 max-md:flex-col">

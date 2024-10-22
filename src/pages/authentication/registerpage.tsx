@@ -1,8 +1,7 @@
 import React from 'react'
-import LoginForm from './components/loginform'
 import RegisterForm from './components/register-form'
 
-const RegisterPage = () => {
+const RegisterPage : React.FC = () => {
   return (
     <div>
       <RegisterForm />

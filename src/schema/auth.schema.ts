@@ -1,15 +1,20 @@
 import * as z from "zod"
 
-import { CommonSchema } from "@/schema/common.schema"
-
 import { Role } from "@/enum"
 
 export const LoginSchema = z.object({
-  emailAddress: z.string().min(1, "Username is required"),
-  passwordHash: z.string().min(1, "Password is required"),
+  emailAddress: z.string().min(1, "Username is required").trim(),
+  passwordHash: z.string().min(1, "Password is required").trim(),
 })
 
 export type LoginType = z.infer<typeof LoginSchema>
+export const LoginResponseSchema = z.object({
+    success: z.boolean(),
+    message: z.string(),
+    token: z.string(),
+});
+
+export type LoginResponseType = z.infer<typeof LoginResponseSchema>;
 
 export const RegisterSchema = z.object({
     emailAddress: z.string().email("Invalid email address"),
@@ -21,13 +26,10 @@ export const RegisterSchema = z.object({
 
 export type RegisterType = z.infer<typeof RegisterSchema>
 
-// export interface UserDTO {
-//   id: string;
-//   emailAddress: string;
-//   fullName: string;
-//   phoneNumber: string;
-//   role: Role;
-// }
+export type RegisterResponseType = {
+  success: boolean
+  message: string
+}
 
 export const UserDTOSchema = z.object({
   id: z.string(),
@@ -39,56 +41,8 @@ export const UserDTOSchema = z.object({
 
 export type UserDTOType = z.infer<typeof UserDTOSchema>
 
-// export const ProfileSchema = MemberSchema.omit({
-//   _id: true,
-//   isAdmin: true,
-// })
-
-// export type ProfileType = z.infer<typeof ProfileSchema>
-
-// export const PasswordSettingSchema = z
-//   .object({
-//     passwordHash: z.string().min(1, "Password is required"),
-//     newPasswordHash: z.string().min(1, "Password is required"),
-//     confirmedPassword: z.string(),
-//   })
-//   .refine((schema) => schema.newPasswordHash === schema.confirmedPassword, {
-//     message: "Passwords do not match",
-//     path: ["confirmedPassword"],
-//   })
-//   .refine((schema) => schema.passwordHash !== schema.newPasswordHash, {
-//     message: "New password must be different from the current password",
-//     path: ["newPassword"],
-//   })
-
-
-
-// export const MemberResponseSchema = CommonSchema.extend({
-//   response: z.array(MemberSchema),
-// })
-
-// export type MemberResponseType = z.infer<typeof MemberResponseSchema> 
-
-// export type LoginResponseType = {
-//   success: boolean
-//   message: string
-//   response: MemberType
-// }
-
-export const LoginResponseSchema = z.object({
-    success: z.boolean(),
-    message: z.string(),
-    token: z.string(),
-});
-
-export type LoginResponseType = z.infer<typeof LoginResponseSchema>;
-export type RegisterResponseType = {
+export type UserDTOResponseType = {
   success: boolean
   message: string
+  response: UserDTOType[]
 }
-
-// export type WhoAmIResponseType = {
-//   success: boolean
-//   message: string
-//   response: MemberType
-// }

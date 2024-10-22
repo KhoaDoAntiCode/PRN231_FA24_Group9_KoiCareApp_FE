@@ -2,31 +2,28 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 
-import { MemberType } from "@/schema/auth.schema"
+import { UserDTOType } from "@/schema/auth.schema"
 
-export const columns: ColumnDef<MemberType>[] = [
+export const columns: ColumnDef<UserDTOType>[] = [
     {
-      accessorKey: "memberName",
-      header: "Username",
+      accessorKey: "id",
+      header: "ID",
     },
     {
-      accessorKey: "name",
-      header: "Name",
+      accessorKey: "emailAddress",
+      header: "Email Address",
     },
     {
-      accessorKey: "YOB",
-      header: "Year of Birth",
+      accessorKey: "fullName",
+      header: "Full Name",
     },
   
     {
-      accessorKey: "isAdmin",
-      header: "Admin",
-      cell: ({ row }) => {
-        return (
-          <div className=" ">
-            <span>{row.original.isAdmin ? "Yes" : "No"}</span>
-          </div>
-        )
-      },
+      accessorKey: "phoneNumber",
+      header: "Phone Number",
+    },
+    {
+      accessorKey: "role",
+      header: "Role",
     },
   ]

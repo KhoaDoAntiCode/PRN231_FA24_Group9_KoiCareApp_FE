@@ -11,8 +11,6 @@ import { Input } from '@/components/ui/input';
 import { LoginResponseType,LoginSchema, LoginType } from "@/schema/auth.schema";
 import { useAuthContext } from "@/context/AuthContext";
 
-
-
 const LoginForm = () => {
     const navigate = useNavigate();
     const { isAuthenticated, login, logout } = useAuthContext();
@@ -32,9 +30,12 @@ const LoginForm = () => {
             );
             // Gọi hàm login từ AuthContext
             login(data.token);
+            
             toast.success("Success", {
                 description: data.message,
             });
+
+
             form.reset();
             navigate("/"); // Redirect after login
         } catch (error) {
