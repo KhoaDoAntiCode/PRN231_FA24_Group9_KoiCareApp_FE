@@ -13,6 +13,11 @@ const axiosClient = axios.create({
     withCredentials: true,
   });
 
+  axiosClient.interceptors.response.use(
+    (response: AxiosResponse) => response?.data ?? response,
+    (error) => Promise.reject(error),
+  )
+
   // axiosClient.interceptors.request.use(
   //   async (config) => {
   //     const access_token = Cookies.get("accessToken");
@@ -25,7 +30,7 @@ const axiosClient = axios.create({
   //     return Promise.reject(err);
   //   },
   // );
-  
+    
   // axiosClient.interceptors.response.use(
   //   (response) => {
   //     return response;
