@@ -1,6 +1,6 @@
 import axiosClient from "@/config/axios"
-import { columns } from "./columns"
-import { DataTable } from "./data-table"
+// import { columns } from "./columns"
+// import { DataTable } from "./data-table"
 
 import { UserDTOResponseType } from "@/schema/auth.schema"
 
