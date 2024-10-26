@@ -14,6 +14,7 @@ import ApplicationList from './components/adoption/application-list';
 import ShelterList from './pages/admin/shelters';
 import AdminDashboard from './pages/admin';
 import AdminLayout from './components/layouts/admin-layout';
+import EventDetailsPage from './components/events/EventDetailsCard';
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
                 <Route path="/adoptionlist" element={<ApplicationList />} />
 
                 <Route path='/events' element={<EventPage />} />
+                <Route path='/events/:id' element={<EventDetailsPage />} />
 
                 <Route path='/success' element={< SuccessPage />} />
 

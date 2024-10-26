@@ -13,10 +13,10 @@ const axiosClient = axios.create({
     withCredentials: true,
   });
 
-  axiosClient.interceptors.response.use(
-    (response: AxiosResponse) => response?.data ?? response,
-    (error) => Promise.reject(error),
-  )
+  // axiosClient.interceptors.response.use(
+  //   (response: AxiosResponse) => response?.data ?? response,
+  //   (error) => Promise.reject(error),
+  // )
 
   // axiosClient.interceptors.request.use(
   //   async (config) => {

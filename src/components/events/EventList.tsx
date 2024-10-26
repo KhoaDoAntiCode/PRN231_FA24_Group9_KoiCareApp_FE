@@ -32,15 +32,16 @@ const EventList = () => {
     const [error, setError] = useState<Error | null>(null);
 
     const fetchEvents = async () => {
-        try {
-            const { data } = await axiosClient.get<EventResponseType>("/api/Event/GetAllEvents");
-            setEvents(data.data);
-            setIsLoading(false);
-        } catch (err: any) {
-            setError(err);
-            setIsLoading(false);
-        }
-    };
+      try {
+          const { data } = await axiosClient.get("/api/Event/GetAllEvents");
+          console.log("Fetched data:", data);
+          setEvents(data.data || []);
+          setIsLoading(false);
+      } catch (err: any) {
+          setError(err);
+          setIsLoading(false);
+      }
+  };
 
     useEffect(() => {
         fetchEvents();
@@ -80,21 +81,21 @@ const EventList = () => {
             </Carousel>
 
             <h2 className="text-4xl font-bold text-center mb-6 text-orange-400">Upcoming Events</h2>
-            {events.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {events.map((event) => (
-                        <EventCard
-                            key={event.id}
-                            id={event.id}
-                            eventName={event.eventName}
-                            startDate={new Date(event.startDate).toLocaleDateString()}
-                            endDate={new Date(event.endDate).toLocaleDateString()}
-                        />
-                    ))}
+            {events !== undefined ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {events.map((event) => (
+                      <EventCard
+                          key={event.id}
+                          id={event.id}
+                          eventName={event.eventName}
+                          startDate={new Date(event.startDate).toLocaleDateString()}
+                          endDate={new Date(event.endDate).toLocaleDateString()}
+                      />
+                  ))}
                 </div>
-            ) : (
-                <div className="text-center text-lg text-gray-500 py-10">No events available</div>
-            )}
+              ) : (
+                  <div className="text-center text-lg text-gray-500 py-10">No events available</div>
+              )}
         </div>
     );
 };

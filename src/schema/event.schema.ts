@@ -11,18 +11,19 @@ export const BasicEventRequestSchema = z.object({
     endDate: z.date(), // Use z.date() for date fields
     eventName: z.string().min(1, "Event name is required"), // Event name as a non-empty string
     description: z.string().optional(), // Description can be optional
-    eventStatus: EventStatusEnum, // Use the enum defined above
-    eventType: EventTypeEnum, // Use the enum defined above
+    eventStatus: z.number().int().transform((val) => val.toString()), // Convert number to string to match enum
+    eventType: z.number().int().transform((val) => val.toString()), // Convert number to string to match enum
     location: z.string().min(1, "Location is required"), // Location as a non-empty string
+    images: z.array(z.string()).optional(), // Include the images field
 });
 
 // Export the inferred TypeScript type
 export type BasicEventRequestType = z.infer<typeof BasicEventRequestSchema>;
 
 export const EventResponseSchema = z.object({
+    data: z.array(BasicEventRequestSchema),
     message: z.string(),
     success: z.boolean(),
-    data: z.array(BasicEventRequestSchema),
 });
 
 export type EventResponseType = z.infer<typeof EventResponseSchema>;

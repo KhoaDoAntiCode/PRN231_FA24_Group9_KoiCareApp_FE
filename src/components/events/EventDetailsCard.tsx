@@ -16,9 +16,11 @@ const EventDetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
   // Use React Query to fetch the event details
-  const { data: event, isLoading, error } = useQuery<BasicEventRequestType>(
-    ['eventDetails', id],
-    () => fetchEventDetails(id!),{enabled}
+  const { data: event, isLoading, error } = useQuery<BasicEventRequestType>({
+    queryKey: ['event', id],
+    queryFn: () => fetchEventDetails(id?.toString() || ''),
+    // enabled: Boolean(id),
+  }
   );
 
   if (isLoading) return <div className="text-center text-lg py-10">Loading...</div>;

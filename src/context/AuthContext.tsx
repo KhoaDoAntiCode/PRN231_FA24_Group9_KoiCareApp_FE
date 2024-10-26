@@ -64,6 +64,9 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
             };
             setIsAuthenticated(true);
             setUser(userData);
+
+            // Authorize user based on role
+            HandleAfterTheLogin(userData);
         } else {
             throw new Error("Failed to decode the token");
         }
@@ -75,7 +78,19 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     }
 };
 
+const HandleAfterTheLogin = (user: UserDTO) => {
+    if (hasRole(user, Role.Administrator)) {
+        navigate('/admin-dashboard');
+    } else if (hasRole(user, Role.Staff)) {
+        navigate('/staff');
+    } else {
+        navigate('/');
+    }
+};
 
+  function hasRole(user: UserDTO, requiredRole: Role): boolean {
+    return user.role === requiredRole;
+  }
     const login = (token: string) => {
       localStorage.setItem('authToken', token);
       handleLoginWithToken(token);

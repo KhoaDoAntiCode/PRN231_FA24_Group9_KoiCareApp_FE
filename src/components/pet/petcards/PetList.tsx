@@ -11,7 +11,7 @@ const PetList = () => {
 
     const fetchPets = async () => {
         try {
-            const { data } = await axiosClient.get<PetResponseType>("/api/Pet/GetAllPets");
+            const { data } = await axiosClient.get<PetResponseType>(`/api/Pet/GetAllPets`);
                 
                 setPets(data.data); 
                 

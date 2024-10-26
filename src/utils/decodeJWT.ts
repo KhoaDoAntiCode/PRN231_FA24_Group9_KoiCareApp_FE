@@ -5,7 +5,7 @@ interface DecodedToken {
     Email: string;
     role: number;
     exp: number; // Expiration time
-    iss: string; // Issuer
+    iss: number; // Issuer
     aud: string; // Audience
     [key: string]: any; // Other fields that may be present
 }

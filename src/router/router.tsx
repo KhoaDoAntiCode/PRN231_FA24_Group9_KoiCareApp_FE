@@ -4,12 +4,9 @@ const About = lazy (
 );
 import Home from '../pages/home/Home';
 import LoginPage from "@/pages/authentication/loginpage";
-import PetDetails from "@/components/pet/pet-details/pet-detail-section";
 import PetDetailsPage from "@/components/pet/pet-details";
-import { App } from "antd";
 import ApplicationList from "@/components/adoption/application-list";
 import AdminDashboard from "@/pages/admin";
-// import RegisterPage from "@/pages/authentication/registerpage";
  const routes= {
     home: '/',
     about: '/about',
