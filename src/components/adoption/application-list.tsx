@@ -15,7 +15,7 @@ const ApplicationList = () => {
             const adoptionForms = data[0].data;
             setAdoptions(adoptionForms);
             setIsLoading(false);
-        } catch (error) {
+        } catch (error) { 
             setError(error as Error);
             setIsLoading(false);
         }

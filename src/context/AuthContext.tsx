@@ -20,7 +20,6 @@ interface UserDTO {
 type AuthContextType = {
   isAuthenticated: boolean;
   user: UserDTOType | null;
-  // setUser: (user: UserDTOType | null) => void;
   login: ( token: string) => void;
   logout: () => void;
 };
