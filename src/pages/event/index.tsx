@@ -1,6 +1,5 @@
 
-import EventList from '@/components/events/EventList'
-import React from 'react'
+import EventList from '@/components/events/event-cards/event-list'
 
 const EventPage = () => {
   return (

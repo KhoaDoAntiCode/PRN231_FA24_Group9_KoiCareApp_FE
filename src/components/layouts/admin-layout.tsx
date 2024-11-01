@@ -3,14 +3,15 @@ import UnauthorizedPage from "@/pages/unauthorized";
 import AdminNavbar from "../navbar/NavbarAdmin";
 import { Outlet } from "react-router-dom";
 import Footer from "../footer/Footer";
+import { Role } from "@/enum";
 
 
 export default function AdminLayout()  {
-    const { isAuthenticated, login, logout } = useAuthContext();
+    const { isAuthenticated, userRole } = useAuthContext();
 
-
-    if (!isAuthenticated) {
-        return <UnauthorizedPage />
+    // Check if the user is authenticated and has the Administrator role
+    if (!isAuthenticated || userRole !== Role.Administrator) {
+        return <UnauthorizedPage />;
     }
 
     return (

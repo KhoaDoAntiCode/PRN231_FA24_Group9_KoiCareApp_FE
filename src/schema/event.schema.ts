@@ -5,7 +5,7 @@ const EventStatusEnum = z.enum(["0", "1", "2"]); // Replace with actual enum val
 const EventTypeEnum = z.enum(["0", "1", "2"]); // Replace with actual enum values or descriptions if available
 
 // Create the Zod schema for BasicEventRequestDTO
-export const BasicEventRequestSchema = z.object({
+export const EventSchema = z.object({
     id: z.string().uuid(), // Assuming id is a UUID, update if it's a different format
     startDate: z.date(), // Use z.date() for date fields
     endDate: z.date(), // Use z.date() for date fields
@@ -18,12 +18,19 @@ export const BasicEventRequestSchema = z.object({
 });
 
 // Export the inferred TypeScript type
-export type BasicEventRequestType = z.infer<typeof BasicEventRequestSchema>;
+export type EventType = z.infer<typeof EventSchema>;
 
 export const EventResponseSchema = z.object({
-    data: z.array(BasicEventRequestSchema),
+    data: z.array(EventSchema),
     message: z.string(),
     success: z.boolean(),
 });
 
+export type EventDetailType = z.infer<typeof EventSchema>;
+
+export type EventDetailResponseType = {
+    data: EventDetailType;
+    message: string,
+    success: boolean,
+};
 export type EventResponseType = z.infer<typeof EventResponseSchema>;

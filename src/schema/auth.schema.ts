@@ -27,8 +27,11 @@ export const RegisterSchema = z.object({
 export type RegisterType = z.infer<typeof RegisterSchema>
 
 export type RegisterResponseType = {
+  data: RegisterType[]
   success: boolean
   message: string
+  error: string
+  errorMessages:string
 }
 
 export const UserDTOSchema = z.object({

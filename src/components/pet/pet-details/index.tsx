@@ -15,6 +15,7 @@ export default function PetDetailsPage() {
             const { data } = await axiosClient.get<PetDetailResponseType>(`/api/Pet/GetPet/${id}`);
             const petData = data.data;
             const imageSrc = petData.petImages ? petData.petImages.map((img) => img.image) : [];
+            console.log(imageSrc);
             setPet({
                 ...petData,
                 // imageSrc,

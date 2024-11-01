@@ -14,43 +14,36 @@ import ApplicationList from './components/adoption/application-list';
 import ShelterList from './pages/admin/shelters';
 import AdminDashboard from './pages/admin';
 import AdminLayout from './components/layouts/admin-layout';
-import EventDetailsPage from './components/events/EventDetailsCard';
+import EventDetailsPage from './components/events/event-details/';
 
 
 function App() {
     const [loading,setLoading] = useState<boolean>(true);
     return (
-        <Routes>
-            <Route element={<RootLayout />}>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<AboutPage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegisterPage />} />
+<Routes>
+    {/* User Routes */}
+    <Route element={<RootLayout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/petlist" element={<PetList />} />
+        <Route path="/petdetails/:id" element={<PetDetailsPage />} />
+        <Route path="/adoption/:id" element={<AdoptionForm />} />
+        <Route path="/adoptionlist" element={<ApplicationList />} />
+        <Route path="/events" element={<EventPage />} />
+        <Route path="/events/:id" element={<EventDetailsPage />} />
+        <Route path="/success" element={<SuccessPage />} />
+        <Route path="/shelterlist" element={<ShelterList />} />
+    </Route>    
 
-                {/* !Pet Route */}
-                <Route path="/petlist"    element={<PetList />} />
-                <Route path="/petdetails/:id" element={<PetDetailsPage />} />
+    {/* Admin Routes */}
+    <Route element={<AdminLayout />}>
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        {/* Uncomment and add additional admin routes here */}
+    </Route>
+</Routes>
 
-                {/* Adoption Form Route */}
-                <Route path="/adoption/:id" element={<AdoptionForm />} />
-                <Route path="/adoptionlist" element={<ApplicationList />} />
-
-                <Route path='/events' element={<EventPage />} />
-                <Route path='/events/:id' element={<EventDetailsPage />} />
-
-                <Route path='/success' element={< SuccessPage />} />
-
-                <Route path='/shelterlist' element={<ShelterList />} />
-               
-            </Route>    
-            <Route element={<AdminLayout />}>
-                <Route path='/admin-dashboard'              element={<AdminDashboard />} />
-                {/* <Route path='/admin/manage-shelter'         element={<ManageShelterList />} />
-                <Route path='/admin/manage-pets'            element={<ManagePetList />} />
-                <Route path='/admin/manage-adoption-forms'  element={<ManageAdoptionFormList />} />
-                <Route path='/admin/events'                 element={<ManageEventPage />} /> */}
-            </Route>
-        </Routes>
     );
 }
 

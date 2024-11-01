@@ -6,7 +6,7 @@ import { ShelterType } from "@/schema/shelters.schema"
 
 export const columns: ColumnDef<ShelterType>[] = [
   {
-    accessorKey: "_id",
+    accessorKey: "id",
     header: "ID",
   },
   {

@@ -9,7 +9,7 @@ export const PetSchema = z.object({
   breed: z.string().min(1, "Breed is required"),
   gender: z.string().min(1, "Gender is required"),
   description: z.string().min(5, "Description is required"),
-  rescueDate: z.date(),
+  rescueDate: z.string(),
   shelterName: z.string().min(1, "Shelter Name is required").nullable(),
   petImages: z.array(z.object({
     image: z.string().url(),

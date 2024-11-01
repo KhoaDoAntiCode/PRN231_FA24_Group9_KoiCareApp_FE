@@ -22,15 +22,17 @@ const LoginForm = () => {
         },
     });
 
-    async function onSubmit(values: LoginType) {
+    async function onSubmit({ emailAddress, passwordHash }: LoginType) {
         try {
             const { data } = await axiosClient.post<LoginResponseType>(
                 "/api/Authentication/LoginWithEmailAndPasswordJWT",
-                values
+                { emailAddress, passwordHash },
             );
-            // Gọi hàm login từ AuthContext
-            login(data.token);
+            if (!data.success) {
+                throw new Error("Login failed");
+            }
             
+            login(data.token); // Gọi hàm login từ AuthContext
             toast.success("Success", {
                 description: data.message,
             });

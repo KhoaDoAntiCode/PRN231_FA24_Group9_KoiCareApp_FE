@@ -11,6 +11,7 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator,
   } from "@/components/ui/breadcrumb"
+
 import {
     Carousel,
     CarouselContent,
@@ -111,7 +112,7 @@ const PetDetailSection = ({
                         { label: 'Gender', value: gender },
                         { label: 'Age', value: age },
                         { label: 'Breed', value: breed },
-                        { label: 'Rescue Date', value: '10-10-2024' },
+                        { label: 'Rescue Date', value: rescueDate },
                         { label: 'Description', value: description },
                     ].map(({ label, value }) => (
                         <div key={label} className="w-[517px] py-2 border-b border-[#ebedef] flex">

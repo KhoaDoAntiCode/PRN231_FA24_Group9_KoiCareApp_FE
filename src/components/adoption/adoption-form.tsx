@@ -8,7 +8,7 @@ import axiosClient from '@/config/axios';
 import { useState,useEffect } from 'react';
 import { Button } from '../ui/button';
 import { toast } from "sonner";
-import { AuthContext, useAuthContext } from '@/context/AuthContext';
+import { useAuthContext } from '@/context/AuthContext';
 import SuccessModal from '@/components/successModal';
 
 import imgform from "@/assets/images/ImgForm.jpg"
@@ -17,7 +17,7 @@ const AdoptionForm = () => {
     const { id } = useParams<{ id: string }>(); // Get petId from URL params
     const navigate = useNavigate();  
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const { isAuthenticated, login, logout } = useAuthContext();
+    const { isAuthenticated } = useAuthContext();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const form = useForm<AdoptionFormType>({

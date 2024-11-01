@@ -44,7 +44,8 @@ export default function RegisterPage() {
           "/api/Authentication/RegisterAnAccount",
           values
         )
-        toast.success("Success", {
+        
+        toast.success("Success Registered", {
           description: data.message,
         })
         form.reset()
@@ -141,7 +142,7 @@ export default function RegisterPage() {
                       name="fullName"
                       render={({ field }) => (
                         <FormItem>
-                          <Label></Label>
+                          <Label>fullName</Label>
                           <FormControl>
                             <Input placeholder="Do Khoa" {...field} />
                           </FormControl>

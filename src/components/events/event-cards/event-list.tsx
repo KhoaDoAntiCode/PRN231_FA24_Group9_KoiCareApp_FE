@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axiosClient from '@/config/axios';
-import { BasicEventRequestType, EventResponseType } from '@/schema/event.schema';
-import EventCard from './EventCard';
+import { EventType, EventResponseType } from '@/schema/event.schema';
+import EventCard from './event-card';
 
 import {
   Carousel,
@@ -27,14 +27,14 @@ import CarouselEvent3 from "@/assets/images/CarouselEvent3.jpg";
 
 
 const EventList = () => {
-    const [events, setEvents] = useState<BasicEventRequestType[]>([]);
+    const [events, setEvents] = useState<EventType[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
 
     const fetchEvents = async () => {
       try {
-          const { data } = await axiosClient.get("/api/Event/GetAllEvents");
-          console.log("Fetched data:", data);
+          const { data } = await axiosClient.get<EventResponseType>("/api/Event/GetAllEvents");
+          // console.log("Fetched data:", data);
           setEvents(data.data || []);
           setIsLoading(false);
       } catch (err: any) {

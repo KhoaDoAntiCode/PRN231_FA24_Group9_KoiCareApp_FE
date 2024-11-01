@@ -31,7 +31,7 @@ export default function DataTableRowActions({
   const navigate = useNavigate()
 
   const { mutateAsync: deleteShelter } = useMutation({
-    mutationKey: ["deleteWatch", shelters.id],
+    mutationKey: ["deleteshe", shelters.id],
     mutationFn: async () => {
       const { data } = await axiosClient.delete<CommonResponseType>(
         `api/Shelter/Deleteshelter/${shelters.id}`

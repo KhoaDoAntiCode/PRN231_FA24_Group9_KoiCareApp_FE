@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import yoga from '../../assets/images/Yoga+Header.png';
-import { Button } from '../ui/button';
+import yoga from '@/assets/images/Yoga+Header.png';
+import { Button } from '../../ui/button';
 
 type EventProps = {
     id: string;
@@ -10,7 +10,7 @@ type EventProps = {
 };
 
 const EventCard = ({ id, eventName, startDate, endDate }: EventProps) => {
-    console.log("EventCard Props:", { id, eventName, startDate, endDate });
+    // console.log("EventCard Props:", { id, eventName, startDate, endDate });
     const navigate = useNavigate();
 
     const handleViewEvent = () => {

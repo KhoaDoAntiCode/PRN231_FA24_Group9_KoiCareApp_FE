@@ -17,7 +17,7 @@ export default function ShelterList() {
     isFetching,
     isError,
   } = useQuery({
-    queryKey: ["watches"],
+    queryKey: ["shelters"],
     queryFn: async () => {
       const { data } = await axiosClient.get<ShelterResponseType[]>("/api/Shelter/GetAllShelters")
       return data[0].data
