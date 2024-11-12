@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom';
 import logo from '../../assets/images/pawsitive.png';
-// import { LogIn, LogOut } from 'lucide-react';
-// import { useAuthContext } from '@/context/AuthContext';
 import Avatar1 from '../avatar';
 interface NavbarProps {
     label: string;
@@ -25,18 +23,14 @@ const navItems: NavbarProps[] = [
         label: 'EVENTS',
         path:  '/events'
     },
-    // {
-    //     label: 'ADOPTION',
-    //     path: '/adoption'
+    // { 
+    //     label: 'ABOUT', 
+    //     path: '/about' 
     // },
-    { 
-        label: 'ABOUT', 
-        path: '/about' 
-    },
-    { 
-        label: 'SHELTERLIST', 
-        path: '/shelterlist'
-    },
+    // { 
+    //     label: 'SHELTERLIST', 
+    //     path: '/shelterlist' 
+    // },
 ];
 
 const Navbar = () => {

@@ -45,9 +45,10 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     const handleLoginWithToken = (token: string) => {
         try {
             const decodedToken = decodeToken(token);
-            if (decodedToken) {
-                const roleString = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+            console.log(decodedToken);
+            if (decodedToken) {const roleString = decodedToken["Role"];
                 if (!roleString) throw new Error("Role is missing in the token");
+                
 
                 const role = mapStringToRole(roleString);
 

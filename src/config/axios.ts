@@ -4,7 +4,7 @@ import axios, { AxiosResponse } from "axios";
 const token = localStorage.getItem('authToken'); 
 
 const axiosClient = axios.create({
-    baseURL: "https://localhost:5001",
+    baseURL: "https://petadoptionsecondapi-ekaxg2c0ccg3fthq.southeastasia-01.azurewebsites.net",
     timeout: 1000,
     headers: {
       "Content-Type": "application/json",
